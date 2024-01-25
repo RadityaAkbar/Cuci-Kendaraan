@@ -121,28 +121,13 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="/jenis" class="nav-link">
+            <li class="nav-item">
+              <a href="/customer" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Users
-                  <i class="right fas fa-angle-left"></i>
+                  Customers
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/kategori" class="nav-link">
-                    <i class="far fa-list nav-icon"></i>
-                    <p>Customer</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/jeniscuci" class="nav-link">
-                    <i class="far fa-list nav-icon"></i>
-                    <p>Foto</p>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </nav>

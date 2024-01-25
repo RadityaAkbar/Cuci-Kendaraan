@@ -1,5 +1,5 @@
 @extends('layouts.adminlayout')
-@section('title', 'Pesanan')
+@section('title', 'Customer')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark"><b>Daftar Pesanan</b></h1>
+            <h1 class="m-0 text-dark"><b>Daftar Customer</b></h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -17,10 +17,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="d">
-            <a href="pesanan/add" class="btn btn-success mb-3"><i class="nav-icon fas fa-plus"></i>
-                <span>Tambah Pesanan</span>
-            </a>
+        <div class="">
 
             @if (Session::has('status'))
               <div class="alert alert-success" role="alert">
@@ -32,22 +29,20 @@
         <table class="table table-striped text-center">
             <thead class="thead bg-light">
                 <tr>
-                  <th>#</th>
-                  <th>Tgl.Pesan</th>
+                  <th>Image</th>
                   <th>Nama</th>
-                  <th>Kategori</th>
-                  <th>Nomor Plat</th>
+                  <th>Email</th>
+                  <th>Nomor Hp</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($pesanan as $data)
+                @foreach ($user as $data)
                 <tr>
-                  <td>{{$loop->iteration}}</td>
-                  <td>{{$data->tgl_pesan}}</td>
-                  <td>{{$data->nama}}</td>
-                  <td>{{$data->kategori->name}}</td>
-                  <td>{{$data->plat_nomor}}</td>
+                  <td><img src="{{ asset('images/profil/'.$data->image) }}" style="width: 50px; border-radius:100%;"></td>
+                  <td>{{$data->name}}</td>
+                  <td>{{$data->email}}</td>
+                  <td>{{$data->nomor_hp}}</td>
                   <td>
                     <a 
                         href="javascript:void(0)"
@@ -57,17 +52,14 @@
                         ><i class="nav-icon fas fa-info-circle"></i></a>
                       
 
-                    <a href="pesanan/{{$data->id}}" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i></a>
-                    <a href="/pesanan/delete/{{$data->id}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
+                    <a href="customer-edit/{{$data->id}}" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i></a>
+                    <a href="/customer-destroy/{{$data->id}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach
               </tbody>
         </table>
 
-        <div class="my-5">
-          {{$pesanan->withQueryString()->links()}}
-          </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

@@ -9,6 +9,7 @@ use App\Models\Jeniscuci;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -86,17 +87,14 @@ class UserController extends Controller
     public function show()
     {
         $user = User::where('id', Auth::user()->id);
-        return view('user/profil', ['user' => $user]);
+        $pesanan = Pesanan::select()->with(['jeniscuci', 'kategori', 'status'])->where('user_id', Auth::user()->id)->get();
+        return view('user/profil', ['user' => $user, 'pesanan' => $pesanan]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
-    {
-        
-    }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -108,18 +106,50 @@ class UserController extends Controller
             'email' => ['required', 'email', 'unique:users,email,' . auth()->user()->id],
             'nomor_hp' => ['required', 'string', 'min:10', 'max:15'],
         ]);
-
+        
         // Update data user
         $user = auth()->user();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->nomor_hp = $request->nomor_hp;
         $user->save();
-
+        
         return view('user/profil');
+    }
+    
+    public function edit(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
 
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Password lama yang Anda masukkan salah.']);
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect('profil')->with('success', 'Password Anda berhasil diubah.');
     }
 
+    public function profil(Request $request)
+    {
+        $this->validate($request, [
+            'image' => ['required'],
+        ]);
+        
+        // Update data user
+        $user = auth()->user();
+        $user->image = $request->image;
+        $user->save();
+        
+        return redirect('/profil');
+    }
+    
     /**
      * Remove the specified resource from storage.
      */

@@ -34,13 +34,13 @@
     
               <form method="POST" action="/signin">
                   @csrf
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="name">Nama</label>
+                <div class="form-outline mb-1">
+                  <label class="form-label" for="name"><b>Nama</b></label>
                   <input class="form-control" type="text" name="name" id="name" required>
                 </div>
 
-                <div class="form-outline mb-4">
-                  <label for="gender" class="col-form-label">Jenis Kelamin</label>
+                <div class="form-outline mb-1">
+                  <label for="gender" class="col-form-label"><b>Jenis Kelamin</b></label>
                   <div>
                     <Select name="gender" id="gender" class="form-control" required>
                         <option value="">Pilih Jenis Kelamin</option>
@@ -50,23 +50,40 @@
                   </div>
                 </div>
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="nomor_hp">No.Handphone</label>
+                <div class="form-outline mb-1">
+                  <label class="form-label" for="nomor_hp"><b>No.Handphone</b></label>
                   <input class="form-control" type="text" name="nomor_hp" id="nomor_hp" required>
                 </div>
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="email">Email</label>
+                <div class="form-outline mb-1">
+                  <label class="form-label" for="email"><b>Email</b></label>
                   <input class="form-control" type="email" name="email" id="email" required>
                 </div>
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="password">Password</label>
+                <div class="form-outline">
+                  <p><b>Pilih Foto</b></p>
+                  <div class="d-flex justify-content-around mb-1">
+                    <img src="{{ asset('images/profil/pp-1.jpg') }}" style="width:70px; border-radius:100%">
+                    <img src="{{ asset('images/profil/pp-2.jpg') }}" style="width:70px; border-radius:100%">
+                    <img src="{{ asset('images/profil/pp-3.jpg') }}" style="width:70px; border-radius:100%">
+                    <img src="{{ asset('images/profil/pp-4.jpg') }}" style="width:70px; border-radius:100%">
+                  </div>
+                </div>
+
+                <div class="form-outline mb-1 d-flex justify-content-around">
+                  <input type="radio" name="image" value="pp-1.jpg" id="image">
+                  <input type="radio" name="image" value="pp-2.jpg" id="image">
+                  <input type="radio" name="image" value="pp-3.jpg" id="image">
+                  <input type="radio" name="image" value="pp-4.jpg" id="image">
+                </div>
+
+                <div class="form-outline mb-1">
+                  <label class="form-label" for="password"><b>Password</b></label>
                   <input class="form-control" type="password" name="password" id="password" required>
                 </div>
 
-                <div class="form-outline mb-4">
-                  <label for="password_confirmation">Konfirmasi Password</label>
+                <div class="form-outline mb-1">
+                  <label for="password_confirmation"><b>Konfirmasi Password</b></label>
                   <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                 </div>
     

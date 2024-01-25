@@ -36,9 +36,13 @@
         <a href="#"><i data-feather="headphones"></i></a>
         @if (Auth::check())
             <div class="profile-menu" style="cursor: pointer">
-              <img src="{{ asset('images/pp-1.png')}}" onclick="toggleMenu()">
+              <img src="{{ asset('images/profil/'.Auth::user()->image) }}" onclick="toggleMenu()">
               <div class="dropdown-content" id="dropdowncontent">
-                <a href="/profil"><i data-feather="user"> </i>Akun</a>
+                @if (Auth::user()->role_id == 1)
+                    <a href="/dashboard"><i data-feather="pie-chart"> </i>Dashboard</a>
+                @else
+                    <a href="/profil"><i data-feather="user"> </i>Akun</a>
+                @endif
                 <a href="/logout"><i data-feather="log-out"> </i>Logout</a>
               </div>
             </div>

@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\JeniscuciController;
 
@@ -24,6 +26,8 @@ Route::post('/user-add', [UserController::class, 'store']);
 Route::post('/cek-add', [UserController::class, 'create']);
 Route::get('/profil', [UserController::class, 'show']);
 Route::put('/edit-profil', [UserController::class, 'update']);
+Route::put('/edit-pass', [UserController::class, 'edit']);
+Route::put('/edit-foto', [UserController::class, 'profil']);
 
 
 Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
@@ -66,5 +70,9 @@ Route::post('/add-jeniscuci', [JeniscuciController::class, 'store'])->middleware
 Route::get('/jeniscuci-edit/{id}', [JeniscuciController::class, 'edit'])->middleware('auth');
 Route::put('/jeniscuci/{id}', [JeniscuciController::class, 'update'])->middleware('auth');
 Route::get('/jeniscuci-destroy/{id}', [JeniscuciController::class, 'destroy'])->middleware('auth');
+
+Route::get('/customer', [CustomerController::class, 'index'])->middleware('auth');
+Route::get('/customer-edit/{id}', [CustomerController::class, 'edit'])->middleware('auth');
+Route::get('/customer-destroy/{id}', [CustomerController::class, 'destroy'])->middleware('auth');
 
 
