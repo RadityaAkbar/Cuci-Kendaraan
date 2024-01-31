@@ -176,8 +176,8 @@
                                             id="show-pesanan"
                                             data-url="{{ route('customer.show', $data->id) }}"
                                             class="btn btn-info"
-                                            ><i class="fa fa-info"></i></a>
-                                            <a href="#" class="btn btn-success"><i class="fa fa-dollar"></i></a>
+                                            ><i class="fa fa-info-circle"></i></a>
+                                            <a href="/export-pdf/{{$data->id}}" class="btn btn-danger"><i class="fa fa-file-pdf"></i></a>
                                           </td>
                                         </tr>
                                         @endforeach

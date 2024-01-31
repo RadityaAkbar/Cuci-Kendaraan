@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Pesanan;
 use App\Models\Kategori;
 use App\Models\Jeniscuci;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -155,8 +157,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function exportPdf(Request $request, $id)
     {
-        //
+        $pesanan = Pesanan::select()->where('id', $id)->with(['jeniscuci', 'kategori', 'status'])->get();
+        // dd($pesanan);
+        $pdf = Pdf::loadView('pdf/export-pesanan', ['pesanan' => $pesanan]);
+        return $pdf->download('invoice-'.Carbon::now()->timestamp.'.pdf');
     }
 }
