@@ -25,6 +25,7 @@ Route::get('/', [UserController::class, 'index']);
 Route::post('/user-add', [UserController::class, 'store']);
 Route::post('/cek-add', [UserController::class, 'create']);
 Route::get('/profil', [UserController::class, 'show']);
+Route::get('/edit/{id}', [UserController::class, 'detail'])->name('customer.show');
 Route::put('/edit-profil', [UserController::class, 'update']);
 Route::put('/edit-pass', [UserController::class, 'edit']);
 Route::put('/edit-foto', [UserController::class, 'profil']);
@@ -74,5 +75,6 @@ Route::get('/jeniscuci-destroy/{id}', [JeniscuciController::class, 'destroy'])->
 Route::get('/customer', [CustomerController::class, 'index'])->middleware('auth');
 Route::get('/customer-edit/{id}', [CustomerController::class, 'edit'])->middleware('auth');
 Route::get('/customer-destroy/{id}', [CustomerController::class, 'destroy'])->middleware('auth');
+
 
 

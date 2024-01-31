@@ -91,9 +91,11 @@ class UserController extends Controller
         return view('user/profil', ['user' => $user, 'pesanan' => $pesanan]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function detail($id)
+    {
+        $pesanan = Pesanan::with(['jeniscuci', 'kategori', 'status'])->findOrFail($id);
+        return response()->json($pesanan);
+    }
     
     /**
      * Update the specified resource in storage.

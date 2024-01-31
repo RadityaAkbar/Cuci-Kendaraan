@@ -44,14 +44,6 @@
                   <td>{{$data->email}}</td>
                   <td>{{$data->nomor_hp}}</td>
                   <td>
-                    <a 
-                        href="javascript:void(0)"
-                        id="show-pesanan"
-                        data-url="{{ route('pesanan.show', $data->id) }}"
-                        class="btn btn-info"
-                        ><i class="nav-icon fas fa-info-circle"></i></a>
-                      
-
                     <a href="customer-edit/{{$data->id}}" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i></a>
                     <a href="/customer-destroy/{{$data->id}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
                   </td>
@@ -63,36 +55,6 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
-    <!-- Modal View Detail Start -->
-  <div class="modal fade" id="pesananShowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Detail Pesanan</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p><strong>Tanggal Pesan :</strong> <span id="pesanan-tgl_pesan"></span></p>
-          <p><strong>No.Pesanan :</strong> <span id="pesanan-no_pesanan"></span></p>
-          <p><strong>Nama :</strong> <span id="pesanan-nama"></span></p>
-          <p><strong>Plat Nomor :</strong> <span id="pesanan-plat_nomor"></span></p>
-          <p><strong>Jenis Cuci :</strong> <span id="pesanan-jeniscuci"></span></p>
-          <p><strong>Jenis Kendaraan :</strong> <span id="pesanan-kategori"></span></p>
-          <p><strong>Harga Cuci :</strong> <span id="pesanan-hargacuci"></span></p>
-          <p><strong>Harga Kategori :</strong> <span id="pesanan-hargakategori"></span></p>
-          <p><strong>Subtotal :</strong> <span id="pesanan-subtotal"></span></p>
-          <p><strong>Status :</strong> <span id="pesanan-status"></span></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
     {{-- <!-- Modal Delete Start-->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

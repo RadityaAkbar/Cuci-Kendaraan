@@ -17,10 +17,23 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="d">
+        <div class="d-flex justify-content-between">
             <a href="pesanan/add" class="btn btn-success mb-3"><i class="nav-icon fas fa-plus"></i>
                 <span>Tambah Pesanan</span>
             </a>
+
+            <div class="col-3">
+              <form action="" method="GET">
+                <div class="">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <button class="input-group-text"><i class="fas fa-search"></i></button>
+                    </div>
+                    <input type="text" class="form-control" name="keyword" placeholder="Nama/Plat Nomor">
+                  </div>
+                </div>
+              </form>
+            </div>
 
             @if (Session::has('status'))
               <div class="alert alert-success" role="alert">
@@ -36,7 +49,9 @@
                   <th>Tgl.Pesan</th>
                   <th>Nama</th>
                   <th>Kategori</th>
-                  <th>Nomor Plat</th>
+                  <th>Jenis Cuci</th>
+                  <th>Plat Nomor</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -47,7 +62,9 @@
                   <td>{{$data->tgl_pesan}}</td>
                   <td>{{$data->nama}}</td>
                   <td>{{$data->kategori->name}}</td>
+                  <td>{{$data->jeniscuci->name}}</td>
                   <td>{{$data->plat_nomor}}</td>
+                  <td>{{$data->status->name}}</td>
                   <td>
                     <a 
                         href="javascript:void(0)"
@@ -65,7 +82,7 @@
               </tbody>
         </table>
 
-        <div class="my-5">
+        <div class="my-2">
           {{$pesanan->withQueryString()->links()}}
           </div>
       </div><!-- /.container-fluid -->

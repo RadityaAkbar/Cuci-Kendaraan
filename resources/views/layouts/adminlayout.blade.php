@@ -129,6 +129,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-print"></i>
+                <p>
+                  Laporan
+                </p>
+              </a>
+            </li>
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

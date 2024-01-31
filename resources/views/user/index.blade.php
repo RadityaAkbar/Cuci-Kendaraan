@@ -40,9 +40,8 @@
               <div class="dropdown-content" id="dropdowncontent">
                 @if (Auth::user()->role_id == 1)
                     <a href="/dashboard"><i data-feather="pie-chart"> </i>Dashboard</a>
-                @else
-                    <a href="/profil"><i data-feather="user"> </i>Akun</a>
                 @endif
+                <a href="/profil"><i data-feather="user"> </i>Akun</a>
                 <a href="/logout"><i data-feather="log-out"> </i>Logout</a>
               </div>
             </div>
@@ -79,6 +78,11 @@
           <h3>Kenapa memilih jasa kami?</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque reprehenderit sint harum quos temporibus quae!</p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque unde consequatur ad molestiae nihil minima iusto odio praesentium voluptatum earum.</p>
+        </div>
+      </div>
+      <div class="baris">
+        <div class="about-image">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.067445064236!2d112.75180577476011!3d-7.2331479927730165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f90455d8efbd%3A0x51bbd0b6f4ba8832!2sKomp.%20Sidotopo%20Dipo%2C%20Sidotopo%2C%20Kec.%20Semampir%2C%20Surabaya%2C%20Jawa%20Timur%2060152!5e0!3m2!1sid!2sid!4v1706196719413!5m2!1sid!2sid" width="700" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </section>
@@ -238,8 +242,8 @@
 
       <div class="links">
         <a href="#home">Home</a>
-        <a href="#kategori">Kategori</a>
-        <a href="#momen">Momen</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#pesan">Pemesanan</a>
       </div>
 
       <div class="credit">

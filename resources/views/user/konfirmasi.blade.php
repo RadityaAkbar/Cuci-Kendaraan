@@ -48,7 +48,7 @@
         <p><b>Subtotal :</b> <input type="text" name="subtotal" value="{{ $pesanan->subtotal }}" class="border-0" readonly></p>
       </div>
       
-      <button type="submit" class="btn btn-secondary">Pesan Sekarang</button>
+      <button type="submit" class="btn btn-primary">Pesan Sekarang</button>
       <a href="/" class="btn btn-danger ml-1">Batal</a>
     </div>
   </form>

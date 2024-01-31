@@ -16,9 +16,13 @@ class PesananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pesanan = Pesanan::with(['kategori', 'jeniscuci', 'status'])->paginate(5);
+        $keyword = $request->keyword;
+        $pesanan = Pesanan::with(['kategori', 'jeniscuci', 'status'])
+                    ->where('nama', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('plat_nomor', 'LIKE', '%'.$keyword.'%')
+                    ->paginate(6);
         return view('admin/pesanan/pesanan', ['pesanan' => $pesanan]);
     }
 
