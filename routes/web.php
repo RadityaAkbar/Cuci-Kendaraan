@@ -21,28 +21,34 @@ use App\Http\Controllers\JeniscuciController;
 |
 */
 
+// User Controller
 Route::get('/', [UserController::class, 'index']);
 Route::post('/user-add', [UserController::class, 'store']);
-Route::post('/cek-add', [UserController::class, 'create']);
-Route::get('/profil', [UserController::class, 'show']);
-Route::get('/edit/{id}', [UserController::class, 'detail'])->name('customer.show');
-Route::put('/edit-profil', [UserController::class, 'update']);
-Route::put('/edit-pass', [UserController::class, 'edit']);
-Route::put('/edit-foto', [UserController::class, 'profil']);
+Route::post('/cek-add', [UserController::class, 'create'])->middleware('auth');
+Route::get('/profil', [UserController::class, 'show'])->middleware('auth');
+Route::get('/edit/{id}', [UserController::class, 'detail'])->middleware('auth')->name('customer.show');
+Route::put('/edit-profil', [UserController::class, 'update'])->middleware('auth');
+Route::put('/edit-pass', [UserController::class, 'edit'])->middleware('auth');
+Route::put('/edit-foto', [UserController::class, 'profil'])->middleware('auth');
 
-
+// Auth Controller
 Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
 Route::post('/signin', [AuthController::class, 'signin'])->middleware('guest');
 Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'authenticate']);
-
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::get('/dashboard', [AdminController::class, 'index'])->middleware('auth');
+// Admin Controller
+Route::get('/dashboard', [AdminController::class, 'index'])->middleware('auth', 'must-admin');
+Route::get('/laporan', [AdminController::class, 'show'])->middleware('auth');
+Route::get('/export', [AdminController::class, 'export'])->middleware('auth');
 
+
+// Pesanan Controller
 Route::group(['prefix' => 'pesanan', 'middleware' => ['auth', 'must-admin']], function () {
     Route::get('/', [PesananController::class, 'index']);
     Route::get('/view/{id}', [PesananController::class, 'show'])->name('pesanan.show');
+    Route::get('/export', [PesananController::class, 'export']);
     Route::get('/add', [PesananController::class, 'create']);
     Route::post('/store', [PesananController::class, 'store']);
     Route::get('/{id}', [PesananController::class, 'edit']);
@@ -58,6 +64,7 @@ Route::group(['prefix' => 'pesanan', 'middleware' => ['auth', 'must-admin']], fu
     // Route::put('/pesanan/{id}', [PesananController::class, 'update'])->middleware('auth');
     // Route::get('/pesanan-destroy/{id}', [PesananController::class, 'destroy'])->middleware('auth');
 
+// Kategori Controller
 Route::get('/kategori', [KategoriController::class, 'index'])->middleware('auth');
 Route::get('/kategori-add', [KategoriController::class, 'create'])->middleware('auth');
 Route::post('/add-kategori', [KategoriController::class, 'store'])->middleware('auth');
@@ -65,6 +72,7 @@ Route::get('/kategori-edit/{id}', [KategoriController::class, 'edit'])->middlewa
 Route::put('/kategori/{id}', [KategoriController::class, 'update'])->middleware('auth');
 Route::get('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->middleware('auth');
 
+// Jeniscuci Controller
 Route::get('/jeniscuci', [JeniscuciController::class, 'index'])->middleware('auth');
 Route::get('/jeniscuci-add', [JeniscuciController::class, 'create'])->middleware('auth');
 Route::post('/add-jeniscuci', [JeniscuciController::class, 'store'])->middleware('auth');
@@ -72,9 +80,11 @@ Route::get('/jeniscuci-edit/{id}', [JeniscuciController::class, 'edit'])->middle
 Route::put('/jeniscuci/{id}', [JeniscuciController::class, 'update'])->middleware('auth');
 Route::get('/jeniscuci-destroy/{id}', [JeniscuciController::class, 'destroy'])->middleware('auth');
 
+// Customer Controller
 Route::get('/customer', [CustomerController::class, 'index'])->middleware('auth');
 Route::get('/customer-edit/{id}', [CustomerController::class, 'edit'])->middleware('auth');
 Route::get('/customer-destroy/{id}', [CustomerController::class, 'destroy'])->middleware('auth');
+
 
 
 

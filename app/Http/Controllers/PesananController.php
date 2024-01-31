@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Status;
 use App\Models\Pesanan;
 use App\Models\Kategori;
 use App\Models\Jeniscuci;
 use Illuminate\Http\Request;
+use App\Exports\PesananExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 
 class PesananController extends Controller
@@ -115,5 +118,10 @@ class PesananController extends Controller
         }
 
         return redirect('/pesanan');
+    }
+
+    public function export()
+    {
+        return (new PesananExport)->download('pesanan-'.Carbon::now()->timestamp.'.xlsx');
     }
 }

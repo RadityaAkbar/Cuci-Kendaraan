@@ -21,6 +21,7 @@
             <a href="pesanan/add" class="btn btn-success mb-3"><i class="nav-icon fas fa-plus"></i>
                 <span>Tambah Pesanan</span>
             </a>
+            {{-- <a href="pesanan/export" class="btn btn-primary">Export</a> --}}
 
             <div class="col-3">
               <form action="" method="GET">
@@ -34,13 +35,13 @@
                 </div>
               </form>
             </div>
+        </div>
 
-            @if (Session::has('status'))
+        @if (Session::has('status'))
               <div class="alert alert-success" role="alert">
                 {{Session::get('message')}}
               </div>
             @endif
-        </div>
 
         <table class="table table-striped text-center">
             <thead class="thead bg-light">

@@ -76,8 +76,19 @@
         
         <div class="konten">
           <h3>Kenapa memilih jasa kami?</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque reprehenderit sint harum quos temporibus quae!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque unde consequatur ad molestiae nihil minima iusto odio praesentium voluptatum earum.</p>
+          <div class="drop-content" id="dropcontent">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+
+          <h3>Layanan Kami</h3>
+          
+            <h4>Harga Kategori</h4>
+              <p>- Motor : Rp.5000</p>
+              <p>- Mobil : Rp.15000</p>
+            <h4>Harga Layanan Cuci</h4>
+              <p>- Cuci Aja : Rp.10000</p>
+              <p>- Cuci Premium : Rp.20000</p>
         </div>
       </div>
       <div class="baris">
@@ -273,7 +284,14 @@
       function toggleMenu() {
         dropdowncontent.classList.toggle("open")
       }
+    </script>
 
+    <script>
+      let dropcontent = document.getElementById("dropcontent");
+
+      function triggerMenu() {
+        dropcontent.classList.toggle("show")
+      }
     </script>
   </body>
 </html>

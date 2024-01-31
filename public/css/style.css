@@ -244,19 +244,42 @@
 
   .about .baris .konten {
     flex: 1 1 45rem;
+    position: relative;
   }
   
   .about .baris .konten h3 {
     font-size: 1.8rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .about .baris .konten p {
-    margin-bottom: 0.8rem;
-    font-size: 1.3rem;
-    font-weight: 200;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 300;
     line-height: 1.5;
   }
+
+  /* .about .baris .konten .dropdown-toggle {
+    text-align: left;
+    background-color: white;
+    width: 80%;
+    border-bottom: 0.1px solid var(--primary);
+  }
+
+  .about .baris .konten .drop-content {
+    opacity: 1;
+    position: relative;
+    left: 0;
+    width: 100%;
+    color: #000000;
+    background-color: #ff0000;
+    transition: all 0.2s ease;
+  }
+
+  .about .baris .konten .drop-content.show {
+    opacity: 0;
+    display: block;
+  } */
 
   /* Pemesanan Section */
   .pemesanan {
