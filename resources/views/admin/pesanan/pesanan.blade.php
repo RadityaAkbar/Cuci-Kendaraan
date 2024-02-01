@@ -44,7 +44,7 @@
             @endif
 
         <table class="table table-striped text-center">
-            <thead class="thead bg-light">
+            <thead class="thead bg-primary">
                 <tr>
                   <th>#</th>
                   <th>Tgl.Pesan</th>

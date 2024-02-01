@@ -30,7 +30,7 @@ Route::get('/edit/{id}', [UserController::class, 'detail'])->middleware('auth')-
 Route::put('/edit-profil', [UserController::class, 'update'])->middleware('auth');
 Route::put('/edit-pass', [UserController::class, 'edit'])->middleware('auth');
 Route::put('/edit-foto', [UserController::class, 'profil'])->middleware('auth');
-Route::get('/export-pdf/{id}', [UserController::class, 'exportPdf']);
+Route::get('/export-pdf/{id}', [UserController::class, 'exportPdf'])->middleware('auth');
 
 
 // Auth Controller

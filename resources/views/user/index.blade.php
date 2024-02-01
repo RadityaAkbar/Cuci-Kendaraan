@@ -164,6 +164,19 @@
                     </Select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="jamcuci">Jam Cuci</label>
+                  <div class="select-container">
+                    <Select name="jam_cuci" id="jamcuci" class="select-box" required>
+                      <option value="">Pilih Jam Cuci</option>
+                      @foreach ($jamCuci as $jam)
+                        <option value="{{ $jam }}" {{ $jamCuciTerpilih == $jam ? 'disabled' : '' }}>{{ $jam }}</option>
+                      @endforeach
+                    </Select>
+                  </div>
+                </div>
+                
               </div>
             </div>
             <div class="form-footer">

@@ -11,12 +11,16 @@
     
   <form action="/user-add" method="POST" enctype="multipart/form-data">
         @csrf
-    <div class="container w-25 mt-4 mb-4 p-4 bg-white rounded">
+    <div class="container mt-4 mb-4 p-4 bg-white rounded" style="width: 30%;">
         <h2>Konfirmasi Pesanan</h2>
         <hr>
 
       <div class="row">
         <p><b>Tanggal :</b> <input type="text" name="tgl_pesan" value="{{ $pesanan->tgl_pesan }}" class="border-0" readonly></p>
+      </div>
+
+      <div class="row">
+        <p><b>Jam Cuci :</b> <input type="timestamp" name="jam_cuci" value="{{ $pesanan->jam_cuci }}" class="border-0" readonly></p>
       </div>
 
       <input type="text" value="{{ $pesanan->no_pesanan }}" name="no_pesanan" style="display: none">

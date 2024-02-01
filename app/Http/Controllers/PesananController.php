@@ -37,31 +37,21 @@ class PesananController extends Controller
 
     public function create()
     {   
-        $jumlah = Pesanan::count();
+        $dates = now()->format('Ymd');
+        $tanggal = now()->format('Y-m-d');
+        $jumlah = Pesanan::whereDate('tgl_pesan', $tanggal)->count();
         $jumlah++;
         $no_pesan = 'C';
-        if($jumlah > 99999999) {
-            $no_pesan = 'C'.$jumlah;
-        } else if($jumlah > 9999999) {
-            $no_pesan = 'C0'.$jumlah;
-        } else if($jumlah > 999999) {
-            $no_pesan = 'C00'.$jumlah;
-        } else if($jumlah > 99999) {
-            $no_pesan = 'C000'.$jumlah;
-        } else if($jumlah > 9999) {
-            $no_pesan = 'C0000'.$jumlah;
-        } else if($jumlah > 999) {
-            $no_pesan = 'C00000'.$jumlah;
-        } else if($jumlah > 99) {
-            $no_pesan = 'C000000'.$jumlah;
+        if($jumlah > 99) {
+            $no_pesan = 'C'.$dates.$jumlah;
         } else if($jumlah > 9) {
-            $no_pesan = 'C0000000'.$jumlah;
+            $no_pesan = 'C'.$dates.'0'.$jumlah;
         } else {
-            $no_pesan = 'C00000000'.$jumlah;
-        } 
-        $jeniscuci = Jeniscuci::select('id', 'name')->get();
+            $no_pesan = 'C'.$dates.'00'.$jumlah;
+        }
         $kategori = Kategori::select('id', 'name')->get();
-        return view('admin/pesanan/pesanan-add', ['jeniscuci' => $jeniscuci, 'kategori' => $kategori, 'no_pesan' => $no_pesan]);
+        $jeniscuci = Jeniscuci::select('id', 'name')->get();
+        return view('admin/pesanan/pesanan-add', ['jeniscuci' => $jeniscuci, 'kategori' => $kategori, 'no_pesan' => $no_pesan, 'tanggal' => $tanggal]);
     }
 
     /**

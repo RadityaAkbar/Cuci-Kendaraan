@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
-            $table->char('no_pesanan', 10);
+            $table->char('no_pesanan', 12);
             $table->string('nama', 100)->required();
             $table->string('plat_nomor', 100)->required();
             $table->string('name', 100)->nullable()->default('text');

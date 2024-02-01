@@ -13,6 +13,7 @@ class Pesanan extends Model
 
     protected $fillable = [
         'tgl_pesan',
+        'jam_cuci',
         'no_pesanan',
         'nama',
         'plat_nomor',
