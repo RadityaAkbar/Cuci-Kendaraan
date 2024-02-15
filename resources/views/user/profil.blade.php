@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <div class="container-fluid col-10">
+    <div class="container-fluid col-11">
         <div class="row justify-content-between mt-3 p-3">
             <h1 class="h3">Akun Saya</h1>
             <a href="/"><i class="fa fa-home" style="font-size:28px; color:black"></i></a>
@@ -64,7 +64,7 @@
                                 <h5 class="card-title mb-0">Profil Saya</h5>
                             </div>
                             <div class="card-body">
-                                <form action="/edit-profil" method="POST" enctype="multipart/form-data">
+                                <form action="/edit-profil" id="formProfil" method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
                                     <div class="row">
@@ -95,14 +95,14 @@
                                         </div>
                                     </div>
     
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary" id="simpan">Simpan</button>
                                     <button type="button" class="btn btn-light border border-dark" id="edit">Edit</button>
                                 </form>
     
                             </div>
                         </div>
-    
                     </div>
+                    
                     <div class="tab-pane fade" id="password" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
@@ -124,7 +124,7 @@
 
                                 <form action="/edit-pass" method="POST" enctype="multipart/form-data" id="password-form">
                                     @method('PUT')
-                                    @csrf   
+                                    @csrf
                                     <div class="form-group">
                                         <label for="inputPasswordCurrent">Current password</label>
                                         <input type="password" class="form-control" id="inputPasswordCurrent" name="current_password">
@@ -153,6 +153,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Tanggal/Jam</th>
                                             <th>Nama</th>
                                             <th>Kendaraan</th>
                                             <th>Nomor Plat</th>
@@ -165,6 +166,7 @@
                                         @foreach ($pesanan as $data)
                                         <tr>
                                           <td>{{$loop->iteration}}</td>
+                                          <td>{{$data->tanggal}}{{$data->jam_cuci}}</td>
                                           <td>{{$data->nama}}</td>
                                           <td>{{$data->kategori->name}}</td>
                                           <td>{{$data->plat_nomor}}</td>
@@ -177,13 +179,20 @@
                                             data-url="{{ route('customer.show', $data->id) }}"
                                             class="btn btn-info"
                                             ><i class="fa fa-info-circle"></i></a>
-                                            <a href="/export-pdf/{{$data->id}}" class="btn btn-danger"><i class="fa fa-file-pdf"></i></a>
+                                            @if ($data->status_id > 1)
+                                                <a href="/export-pdf/{{$data->id}}" class="btn btn-danger"><i class="fa fa-file-pdf"></i></a>
+                                            @else 
+                                                <a href="#" class="btn btn-success"><i class="fa fa-dollar"></i></a>
+                                            @endif
                                           </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-    
+                                
+                                <div class="my-2">
+                                    {{$pesanan->withQueryString()->links()}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -238,7 +247,7 @@
   <div class="modal fade" id="pesananShowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-info">
           <h5 class="modal-title" id="exampleModalLabel">Detail Pesanan</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -254,6 +263,7 @@
             <p><strong>Harga Cuci :</strong> <span id="pesanan-hargacuci"></span></p>
             <p><strong>Harga Kategori :</strong> <span id="pesanan-hargakategori"></span></p>
             <p><strong>Subtotal :</strong> <span id="pesanan-subtotal"></span></p>
+            <p><strong>Metode Bayar :</strong> <span style="text-transform: capitalize;" id="pesanan-metode"></span></p>
             <p><strong>Status :</strong> <span id="pesanan-status"></span></p>
         </div>
         <div class="modal-footer">
@@ -269,6 +279,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script>
         const buttons = document.querySelectorAll(".btn-light");
     
@@ -281,6 +293,65 @@
                     }
                 });
             }
+
+        const simpanButton = document.getElementById("simpan");
+        const editButton = document.getElementById("edit");
+
+        editButton.addEventListener("click", () => {
+        simpanButton.disabled = false;
+        });
+
+        // Simpan button initially disabled
+        simpanButton.disabled = true;
+    </script>
+    <script type="text/javascript">
+        $(function() {
+        $('#simpan').click(function(e) {
+            e.preventDefault();
+
+            Swal.fire({
+            title: "Simpan Perubahan Profil?",
+            text: "Perubahan Profil Akan Disimpan!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Simpan!"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                url: '/edit-profil',
+                method: 'POST',
+                data: new FormData($('#formProfil')[0]), // Access form data directly
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    Swal.fire({
+                        title: "Sukses!",
+                        text: "Berhasil Mengupdate Profil.",
+                        icon: "success",
+                        confirmButtonText: "Ok",
+                    }).then((result2) => {
+                        if (result2.isConfirmed) {
+                            // Redirect ke link href
+                            window.location.href = '/profil';
+                        }
+                    });
+                },
+                error: function(error) {
+                    // Tampilkan pesan error
+                    Swal.fire(
+                    "Gagal!",
+                    "Terjadi Kesalahan Saat Mengupdate Profil!",
+                    "error"
+                    );
+                }
+                });
+            }
+            });
+        });
+        });
+
     </script>
     <script type="text/javascript">
        
@@ -300,12 +371,11 @@
                 $('#pesanan-hargakategori').text(data.harga_kategori);
                 $('#pesanan-subtotal').text(data.subtotal);
                 $('#pesanan-status').text(data.status.name);
+                $('#pesanan-metode').text(data.metode_bayar);
               })
            });
             
         });
-       
     </script>
-
 </body>
 </html>

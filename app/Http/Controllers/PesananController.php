@@ -109,9 +109,4 @@ class PesananController extends Controller
 
         return redirect('/pesanan');
     }
-
-    public function export()
-    {
-        return (new PesananExport)->download('pesanan-'.Carbon::now()->timestamp.'.xlsx');
-    }
 }

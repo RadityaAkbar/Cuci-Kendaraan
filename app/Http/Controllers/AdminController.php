@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use App\Exports\PesananExport;
@@ -13,7 +14,8 @@ class AdminController extends Controller
     public function index()
     {   
         $pesanan = Pesanan::count();
-        return view('admin/dashboard', ['pesanan' => $pesanan]);
+        $user = User::select()->where('role_id', 2)->count();
+        return view('admin/dashboard', ['pesanan' => $pesanan, 'user' => $user]);
     }
 
     public function show(Request $request)

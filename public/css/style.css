@@ -168,7 +168,7 @@
     bottom: 0;
     background: linear-gradient(
       0deg,
-      rgb(126, 126, 126) 3%,
+      rgb(255, 255, 255) 3%,
       rgba(255, 255, 255, 0) 50%
     );
   }
@@ -215,18 +215,26 @@
   
   /* About Section */
   .about {
-    padding: 7rem 7% 1.4rem;
+    padding: 3rem 7% 1.4rem;
   }
 
   .about h2 {
     text-align: center;
     font-size: 2.6rem;
-    margin-bottom: 3rem;
     font-weight: 600;
   }
-
+  
   .about h2 span {
     color: var(--primary);
+  }
+
+  .about p {
+    text-align: center;
+    max-width: 30rem;
+    margin: auto;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 2rem;
   }
 
   .about .baris {
@@ -259,34 +267,11 @@
     line-height: 1.5;
   }
 
-  /* .about .baris .konten .dropdown-toggle {
-    text-align: left;
-    background-color: white;
-    width: 80%;
-    border-bottom: 0.1px solid var(--primary);
-  }
-
-  .about .baris .konten .drop-content {
-    opacity: 1;
-    position: relative;
-    left: 0;
-    width: 100%;
-    color: #000000;
-    background-color: #ff0000;
-    transition: all 0.2s ease;
-  }
-
-  .about .baris .konten .drop-content.show {
-    opacity: 0;
-    display: block;
-  } */
-
   /* Pemesanan Section */
   .pemesanan {
-    padding: 7rem 7% 1.4rem;
+    padding: 3.5rem 7% 1.4rem;
   }
 
-  
   .pemesanan h2 {
     text-align: center;
     font-size: 2.6rem;

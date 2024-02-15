@@ -56,21 +56,21 @@
               <div class="form-group row">
                 <label for="jeniscuci" class="col-sm-2 col-form-label">Jenis Cuci :</label>
                 <div class="col-sm-10">
-                  <input type="text" name="jeniscuci" class="form-control" id="jeniscuci" value="{{$pesanan->jeniscuci->name}}" readonly>
+                  <input type="text" class="form-control" id="jeniscuci" value="{{$pesanan->jeniscuci->name}}" readonly>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label for="plat_nomor" class="col-sm-2 col-form-label">Jenis Kendaraan :</label>
                 <div class="col-sm-10">
-                  <input type="text" name="plat_nomor" class="form-control" id="plat_nomor" value="{{$pesanan->kategori->name}}" readonly>
+                  <input type="text" class="form-control" id="plat_nomor" value="{{$pesanan->kategori->name}}" readonly>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label for="plat_nomor" class="col-sm-2 col-form-label">Subtotal :</label>
                 <div class="col-sm-10">
-                  <input type="text" name="plat_nomor" class="form-control" id="plat_nomor" value="{{$pesanan->subtotal}}" readonly>
+                  <input type="text" name="subtotal" class="form-control" id="plat_nomor" value="{{$pesanan->subtotal}}" readonly>
                 </div>
               </div>
 

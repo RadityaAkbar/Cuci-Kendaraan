@@ -45,7 +45,7 @@ class PesananExport implements FromQuery, WithMapping, WithHeadings
     public function headings(): array
     {
         return [
-            'Tanggal',
+            'Tanggal kontol',
             'No.Pesanan',
             'Nama',
             'Plat Nomor',

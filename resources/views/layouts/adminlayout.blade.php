@@ -37,7 +37,7 @@
 }
 
 </style>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -91,7 +91,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/pesanan" class="nav-link active">
+              <a href="/pesanan" class="nav-link">
                 <i class="nav-icon fas fa-clipboard"></i>
                 <p>
                   Pesanan
@@ -148,6 +148,15 @@
     <div class="content-wrapper">
       @yield('content')
     </div>
+    
+    <footer class="main-footer">
+      <strong>DitWash &copy; 2021-2024.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Admin Panel</b>
+      </div>
+    </footer>
+
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
@@ -194,18 +203,25 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-  var msg = '{{Session::get('success')}}';
-  var exist = '{{Session::has('success')}}';
-  if(exist){
-    alert(msg);
-  }
+  @if (session()->has('success'))
+      Swal.fire({
+          title: 'Sukses!',
+          text: '{{ session()->get('success') }}',
+          icon: 'success',
+          confirmButtonText: 'OK'
+      });
+  @endif
 </script>
 <script>
-  var msg = '{{Session::get('alert')}}';
-  var exist = '{{Session::has('alert')}}';
-  if(exist){
-    alert(msg);
-  }
+  const currentPageUrl = window.location.href;
+
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  navLinks.forEach(navLink => {
+    if (navLink.href === currentPageUrl) {
+      navLink.classList.add('active');
+    }
+  });
 </script>
 
 @yield ('script')

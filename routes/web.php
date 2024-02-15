@@ -23,14 +23,19 @@ use App\Http\Controllers\JeniscuciController;
 
 // User Controller
 Route::get('/', [UserController::class, 'index']);
-Route::post('/user-add', [UserController::class, 'store']);
-Route::post('/cek-add', [UserController::class, 'create'])->middleware('auth');
+
+Route::get('/user-pesanan/{id}', [UserController::class, 'destroy'])->middleware('auth');
+Route::post('/konfirmasi', [UserController::class, 'create'])->middleware('auth');
+Route::get('/status', [UserController::class, 'store'])->middleware('auth');
+
+
 Route::get('/profil', [UserController::class, 'show'])->middleware('auth');
 Route::get('/edit/{id}', [UserController::class, 'detail'])->middleware('auth')->name('customer.show');
 Route::put('/edit-profil', [UserController::class, 'update'])->middleware('auth');
 Route::put('/edit-pass', [UserController::class, 'edit'])->middleware('auth');
 Route::put('/edit-foto', [UserController::class, 'profil'])->middleware('auth');
 Route::get('/export-pdf/{id}', [UserController::class, 'exportPdf'])->middleware('auth');
+// Route::get('/pdf/{id}', [UserController::class, 'pdf']);
 
 
 // Auth Controller
@@ -50,7 +55,6 @@ Route::get('/export', [AdminController::class, 'export'])->middleware('auth');
 Route::group(['prefix' => 'pesanan', 'middleware' => ['auth', 'must-admin']], function () {
     Route::get('/', [PesananController::class, 'index']);
     Route::get('/view/{id}', [PesananController::class, 'show'])->name('pesanan.show');
-    Route::get('/export', [PesananController::class, 'export']);
     Route::get('/add', [PesananController::class, 'create']);
     Route::post('/store', [PesananController::class, 'store']);
     Route::get('/{id}', [PesananController::class, 'edit']);

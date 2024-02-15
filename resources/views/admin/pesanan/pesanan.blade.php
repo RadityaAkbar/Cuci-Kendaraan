@@ -18,9 +18,9 @@
     <section class="content">
       <div class="container-fluid">
         <div class="d-flex justify-content-between">
-            <a href="pesanan/add" class="btn btn-success mb-3"><i class="nav-icon fas fa-plus"></i>
-                <span>Tambah Pesanan</span>
-            </a>
+              {{-- <a href="pesanan/add" class="btn btn-success mb-3"><i class="nav-icon fas fa-plus"></i>
+                  <span>Tambah Pesanan</span>
+              </a> --}}
             {{-- <a href="pesanan/export" class="btn btn-primary">Export</a> --}}
 
             <div class="col-3">
@@ -43,7 +43,7 @@
               </div>
             @endif
 
-        <table class="table table-striped text-center">
+        <table class="table table-striped text-center mt-3">
             <thead class="thead bg-primary">
                 <tr>
                   <th>#</th>
@@ -85,7 +85,7 @@
 
         <div class="my-2">
           {{$pesanan->withQueryString()->links()}}
-          </div>
+        </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -110,6 +110,7 @@
           <p><strong>Harga Cuci :</strong> <span id="pesanan-hargacuci"></span></p>
           <p><strong>Harga Kategori :</strong> <span id="pesanan-hargakategori"></span></p>
           <p><strong>Subtotal :</strong> <span id="pesanan-subtotal"></span></p>
+          <p><strong>Metode Bayar :</strong> <span style="text-transform: capitalize;" id="pesanan-metode"></span></p>
           <p><strong>Status :</strong> <span id="pesanan-status"></span></p>
         </div>
         <div class="modal-footer">
@@ -162,7 +163,7 @@
               $('#pesanan-hargakategori').text(data.harga_kategori);
               $('#pesanan-subtotal').text(data.subtotal);
               $('#pesanan-status').text(data.status.name);
-
+              $('#pesanan-metode  ').text(data.metode_bayar);
           })
        });
         

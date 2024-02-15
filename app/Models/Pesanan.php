@@ -22,9 +22,17 @@ class Pesanan extends Model
         'harga_cuci',
         'harga_kategori',
         'subtotal',
+        'metode_bayar',
         'status_id',
         'user_id'
     ];
+
+    public function scopeAvailable($query, $tanggal, $jam)
+    {
+        return $query->where('tgl_pesan', $tanggal)
+            ->where('jam_cuci', $jam)
+            ->count() < 4;
+    }
     
     public function jeniscuci()
     {
@@ -41,8 +49,8 @@ class Pesanan extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(User::class);
     }
 }

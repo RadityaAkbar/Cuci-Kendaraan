@@ -29,11 +29,9 @@
         <a href="#home">Home</a>
         <a href="#about">Tentang Kami</a>
         <a href="#pesan">Pemesanan</a>
-        <a href="#ulasan">Ulasan</a>
       </div>
 
       <div class="navi-extra">
-        <a href="#"><i data-feather="headphones"></i></a>
         @if (Auth::check())
             <div class="profile-menu" style="cursor: pointer">
               <img src="{{ asset('images/profil/'.Auth::user()->image) }}" onclick="toggleMenu()">
@@ -68,6 +66,7 @@
     <!-- About Section Start -->
     <section id="about" class="about">
       <h2><span>Tentang</span> Kami</h2>
+      <p>Lorem ipsum dolor sit amet.</p>
 
       <div class="baris">
         <div class="about-image">
@@ -93,7 +92,7 @@
       </div>
       <div class="baris">
         <div class="about-image">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.067445064236!2d112.75180577476011!3d-7.2331479927730165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f90455d8efbd%3A0x51bbd0b6f4ba8832!2sKomp.%20Sidotopo%20Dipo%2C%20Sidotopo%2C%20Kec.%20Semampir%2C%20Surabaya%2C%20Jawa%20Timur%2060152!5e0!3m2!1sid!2sid!4v1706196719413!5m2!1sid!2sid" width="700" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https:/www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.067445064236!2d112.75180577476011!3d-7.2331479927730165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f90455d8efbd%3A0x51bbd0b6f4ba8832!2sKomp.%20Sidotopo%20Dipo%2C%20Sidotopo%2C%20Kec.%20Semampir%2C%20Surabaya%2C%20Jawa%20Timur%2060152!5e0!3m2!1sid!2sid!4v1706196719413!5m2!1sid!2sid" width="700" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </section>
@@ -107,7 +106,7 @@
         </p>
         
         <div class="row">
-          <form action="/cek-add" method="POST" enctype="multipart/form-data">
+          <form action="/konfirmasi" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
               <div class="form-left">
@@ -115,14 +114,15 @@
 
                 <div class="form-group">
                   <label for="nama">Nama</label>
-                  <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" required>
+                  <input type="text" class="form-control" id="nama" name="nama" @if(Auth::check())
+                   value="{{Auth::user()->name}}"@endif placeholder="Masukkan Nama" required>
                 </div>
                 
                 <div class="form-group">
                   <label for="kategori">Jenis Kendaraan</label>
                   <div class="select-container">
                     <Select name="kategori_id" id="kategori" class="select-box" required>
-                        <option value="">Pilih Kendaraan</option>
+                        <option value="" selected disabled>Pilih Kendaraan</option>
                         @foreach ($kategori as $item)
                             <option value="{{$item->id}}">{{$item->name}}</option>
                         @endforeach
@@ -146,7 +146,7 @@
                   <label for="jeniscuci">Jenis Cuci</label>
                   <div class="select-container">
                     <Select name="jeniscuci_id" id="jeniscuci" class="select-box" required>
-                        <option value="">Pilih Jenis Cuci</option>
+                        <option value="" selected disabled>Pilih Jenis Cuci</option>
                         @foreach ($jeniscuci as $item)
                             <option value="{{$item->id}}">{{$item->name}}</option>
                         @endforeach
@@ -157,10 +157,10 @@
                 <div class="form-group">
                   <label for="bayar">Pembayaran</label>
                   <div class="select-container">
-                    <Select id="bayar" class="select-box">
+                    <Select id="bayar" class="select-box" name="metode_bayar">
                         <option value="">Pilih Metode Bayar</option>
-                        <option value="">Tunai</option>
-                        <option value="">Non-Tunai</option>
+                        <option value="tunai">Tunai</option>
+                        <option value="non-tunai">Non-Tunai</option>
                     </Select>
                   </div>
                 </div>
@@ -169,12 +169,21 @@
                   <label for="jamcuci">Jam Cuci</label>
                   <div class="select-container">
                     <Select name="jam_cuci" id="jamcuci" class="select-box" required>
-                      <option value="">Pilih Jam Cuci</option>
-                      @foreach ($jamCuci as $jam)
-                        <option value="{{ $jam }}" {{ $jamCuciTerpilih == $jam ? 'disabled' : '' }}>{{ $jam }}</option>
-                      @endforeach
+                      <option value="" selected disabled>Pilih Jam Cuci</option>
+                      @if (empty($jamCuciTersedia))
+                          <option value="" disabled>Jam Cuci Tidak Tersedia</option>
+                      @else
+                          @foreach ($jamCuciTersedia as $jam)
+                              <option value="{{ $jam }}">{{ $jam }}</option>
+                          @endforeach
+                      @endif
                     </Select>
                   </div>
+                  @if (Session::has('status'))
+                    <p role="alert" style="color: red;">
+                      *{{Session::get('message')}}
+                    </p>
+                  @endif
                 </div>
                 
               </div>
@@ -188,7 +197,7 @@
       <!-- Pemesanan Section End -->
     
 
-    <!-- Kategori Section Start -->
+    {{-- <!-- Kategori Section Start -->
     <section class="kategori" id="ulasan">
       <h2><span>Kritik</span> & Saran</h2>
       <p>
@@ -254,7 +263,7 @@
         </div>
       </div>
     </section>
-    <!-- Momen Section End -->
+    <!-- Momen Section End --> --}}
 
     <!-- Footer Start -->
     <footer>
@@ -276,6 +285,9 @@
     </footer>
     <!-- Footer End -->
 
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Feather-Icons -->
     <script>
       feather.replace();
@@ -283,14 +295,7 @@
 
     <!-- My Javascript -->
     <script src="{{ asset('js\script.js') }}"></script>
-    
-    <script>
-      var msg = '{{Session::get('success')}}';
-      var exist = '{{Session::has('success')}}';
-      if(exist){
-        alert(msg);
-      }
-    </script>
+  
     <script>
       let dropdowncontent = document.getElementById("dropdowncontent");
 
@@ -298,13 +303,16 @@
         dropdowncontent.classList.toggle("open")
       }
     </script>
-
     <script>
-      let dropcontent = document.getElementById("dropcontent");
-
-      function triggerMenu() {
-        dropcontent.classList.toggle("show")
-      }
+        @if (session()->has('success'))
+            Swal.fire({
+                title: 'Sukses!',
+                text: '{{ session()->get('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
     </script>
+    
   </body>
 </html>
