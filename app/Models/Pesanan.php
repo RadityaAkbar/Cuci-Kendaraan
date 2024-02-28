@@ -27,12 +27,13 @@ class Pesanan extends Model
         'user_id'
     ];
 
-    public function scopeAvailable($query, $tanggal, $jam)
-    {
-        return $query->where('tgl_pesan', $tanggal)
-            ->where('jam_cuci', $jam)
-            ->count() < 4;
-    }
+    // public function scopeAvailable($query, $tanggal, $jam)
+    // {
+    //     return $query->where('tgl_pesan', $tanggal)
+    //         ->where('jam_cuci', $jam)
+    //         ->count() < 4;
+    // }
+
     
     public function jeniscuci()
     {

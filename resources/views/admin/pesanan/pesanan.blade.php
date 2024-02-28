@@ -23,9 +23,9 @@
               </a> --}}
             {{-- <a href="pesanan/export" class="btn btn-primary">Export</a> --}}
 
-            <div class="col-3">
+            <div class="col-3 mb-1">
               <form action="" method="GET">
-                <div class="">
+                <div class="d-flex">
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <button class="input-group-text"><i class="fas fa-search"></i></button>
@@ -43,45 +43,71 @@
               </div>
             @endif
 
-        <table class="table table-striped text-center mt-3">
-            <thead class="thead bg-primary">
-                <tr>
-                  <th>#</th>
-                  <th>Tgl.Pesan</th>
-                  <th>Nama</th>
-                  <th>Kategori</th>
-                  <th>Jenis Cuci</th>
-                  <th>Plat Nomor</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
+            <table class="table table-striped text-center table-sortable mt-2">
+              <thead class="thead" style="color: white">
+                  <tr>
+                      <th scope="col">
+                          <a style="" href="#" class="sort" data-sort="no">#</a>
+                      </th>
+                      <th scope="col">
+                          <a href="#" class="sort" data-sort="tgl_pesan">Tgl.Pesan</a>
+                      </th>
+                      <th scope="col">
+                          <a href="#" class="sort" data-sort="nama">Nama</a>
+                      </th>
+                      <th scope="col">
+                          <a href="#" class="sort" data-sort="kategori">Kategori</a>
+                      </th>
+                      <th scope="col">
+                          <a href="#" class="sort" data-sort="jeniscuci">Jenis Cuci</a>
+                      </th>
+                      <th scope="col">
+                          <a href="#" class="sort" data-sort="plat_nomor">Plat Nomor</a>
+                      </th>
+                      <th scope="col">
+                          <a href="#" class="sort" data-sort="status">Status</a>
+                      </th>
+                      <th scope="col" class="text-primary">Action</th>
+                  </tr>
               </thead>
               <tbody>
-                @foreach ($pesanan as $data)
-                <tr>
-                  <td>{{$loop->iteration}}</td>
-                  <td>{{$data->tgl_pesan}}</td>
-                  <td>{{$data->nama}}</td>
-                  <td>{{$data->kategori->name}}</td>
-                  <td>{{$data->jeniscuci->name}}</td>
-                  <td>{{$data->plat_nomor}}</td>
-                  <td>{{$data->status->name}}</td>
-                  <td>
-                    <a 
-                        href="javascript:void(0)"
-                        id="show-pesanan"
-                        data-url="{{ route('pesanan.show', $data->id) }}"
-                        class="btn btn-info"
-                        ><i class="nav-icon fas fa-info-circle"></i></a>
-                      
-
-                    <a href="pesanan/{{$data->id}}" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i></a>
-                    <a href="/pesanan/delete/{{$data->id}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
-                  </td>
-                </tr>
-                @endforeach
+                  @foreach ($pesanan as $data)
+                      <tr>
+                          <th scope="row">{{$loop->iteration}}</th>
+                          <td>{{$data->tgl_pesan}}</td>
+                          <td>{{$data->nama}}</td>
+                          @if ($data->kategori_id > 0)
+                              <td>{{$data->kategori->name}}</td>
+                          @else
+                              <td>{{$data->kategori_id}}</td>
+                          @endif
+                          @if ($data->jeniscuci_id > 0)
+                              <td>{{$data->jeniscuci->name}}</td>
+                          @else
+                              <td>{{$data->jeniscuci_id}}</td>
+                          @endif
+                          <td>{{$data->plat_nomor}}</td>
+                          <td>{{$data->status->name}}</td>
+                          <td>
+                              <a
+                                  href="javascript:void(0)"
+                                  id="show-pesanan"
+                                  data-url="{{ route('pesanan.show', $data->id) }}"
+                                  class="btn btn-info"
+                              ><i class="nav-icon fas fa-info-circle"></i></a>
+          
+                              @if ($data->status_id < 3)
+                                  <a href="pesanan/{{$data->id}}" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i></a>
+                              @endif
+          
+                              <a href="/pesanan/delete/{{$data->id}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
+                          </td>
+                      </tr>
+                  @endforeach
               </tbody>
-        </table>
+          </table>
+          
+          
 
         <div class="my-2">
           {{$pesanan->withQueryString()->links()}}
@@ -102,6 +128,7 @@
         </div>
         <div class="modal-body">
           <p><strong>Tanggal Pesan :</strong> <span id="pesanan-tgl_pesan"></span></p>
+          <p><strong>Jam Cuci :</strong> <span id="pesanan-jam_cuci"></span></p>
           <p><strong>No.Pesanan :</strong> <span id="pesanan-no_pesanan"></span></p>
           <p><strong>Nama :</strong> <span id="pesanan-nama"></span></p>
           <p><strong>Plat Nomor :</strong> <span id="pesanan-plat_nomor"></span></p>
@@ -154,11 +181,16 @@
           $.get(pesananURL, function (data) {
               $('#pesananShowModal').modal('show');
               $('#pesanan-tgl_pesan').text(data.tgl_pesan);
+              $('#pesanan-jam_cuci').text(data.jam_cuci);
               $('#pesanan-no_pesanan').text(data.no_pesanan);
               $('#pesanan-nama').text(data.nama);
               $('#pesanan-plat_nomor').text(data.plat_nomor);
-              $('#pesanan-jeniscuci').text(data.jeniscuci.name);
-              $('#pesanan-kategori').text(data.kategori.name);
+              if(data.jeniscuci_id > 0) {
+                $('#pesanan-jeniscuci').text(data.jeniscuci.name);
+                }
+                if(data.kategori_id > 0 ) {
+                $('#pesanan-kategori').text(data.kategori.name);
+                }
               $('#pesanan-hargacuci').text(data.harga_cuci);
               $('#pesanan-hargakategori').text(data.harga_kategori);
               $('#pesanan-subtotal').text(data.subtotal);
@@ -178,24 +210,59 @@
       var link = $(this).attr("href");
   
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "Hapus Pesanan?",
+        text: "Pesanan Akan Dihapus!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Ya, Hapus!"
       }).then((result) => {
         if (result.isConfirmed) {
           window.location.href = link;
           Swal.fire(
-            "Deleted!",
-            "Your file has been deleted.",
+            "Sukses!",
+            "Pesanan Berhasil Dihapus.",
             "success"
           );
         }
       });
     });
   });
+  </script>
+  <script>
+    $(document).ready(function() {
+    $('.table-sortable th').on('click', function() {
+        // Get header index and current sort order
+        var thIndex = $(this).index();
+        var sortOrder = $(this).data('sort-order') || 'asc';
+
+        // Toggle sort order
+        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+
+        // Add `current` class to clicked header and remove from others
+        $(this).addClass('current').siblings().removeClass('current');
+
+        // Apply sort arrows (optional)
+        $(this).find('.sort-icon').remove();
+        $(this).append('<i class="sort-icon fas fa-' + sortOrder + '"></i>');
+
+        // Sort table accordingly
+        $('.table-sortable tbody tr').sort(function(a, b) {
+            var sortA = $(a).children().eq(thIndex).text().toLowerCase();
+            var sortB = $(b).children().eq(thIndex).text().toLowerCase();
+
+            if (sortOrder === 'asc') {
+                return sortA > sortB ? 1 : -1;
+            } else {
+                return sortA < sortB ? 1 : -1;
+            }
+        }).appendTo('.table-sortable tbody');
+
+        // Update sort order attribute
+        $(this).data('sort-order', sortOrder);
+    });
+});
+
   </script>
 @endsection

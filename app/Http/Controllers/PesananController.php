@@ -25,6 +25,9 @@ class PesananController extends Controller
         $pesanan = Pesanan::with(['kategori', 'jeniscuci', 'status'])
                     ->where('nama', 'LIKE', '%'.$keyword.'%')
                     ->orWhere('plat_nomor', 'LIKE', '%'.$keyword.'%')
+                    ->orWhereHas('status', function($query) use($keyword) {
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                    })
                     ->paginate(6);
         return view('admin/pesanan/pesanan', ['pesanan' => $pesanan]);
     }
@@ -39,16 +42,7 @@ class PesananController extends Controller
     {   
         $dates = now()->format('Ymd');
         $tanggal = now()->format('Y-m-d');
-        $jumlah = Pesanan::whereDate('tgl_pesan', $tanggal)->count();
-        $jumlah++;
-        $no_pesan = 'C';
-        if($jumlah > 99) {
-            $no_pesan = 'C'.$dates.$jumlah;
-        } else if($jumlah > 9) {
-            $no_pesan = 'C'.$dates.'0'.$jumlah;
-        } else {
-            $no_pesan = 'C'.$dates.'00'.$jumlah;
-        }
+        $no_pesan = 'C'.Carbon::now()->timestamp;
         $kategori = Kategori::select('id', 'name')->get();
         $jeniscuci = Jeniscuci::select('id', 'name')->get();
         return view('admin/pesanan/pesanan-add', ['jeniscuci' => $jeniscuci, 'kategori' => $kategori, 'no_pesan' => $no_pesan, 'tanggal' => $tanggal]);

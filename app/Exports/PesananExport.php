@@ -24,7 +24,7 @@ class PesananExport implements FromQuery, WithMapping, WithHeadings
     public function query()
     {
         return Pesanan::query()->whereBetween('tgl_pesan', $this->tgl_pesan);
-    }
+    }  
 
     public function map($pesanan): array
     {
@@ -45,7 +45,7 @@ class PesananExport implements FromQuery, WithMapping, WithHeadings
     public function headings(): array
     {
         return [
-            'Tanggal kontol',
+            'Tanggal',
             'No.Pesanan',
             'Nama',
             'Plat Nomor',

@@ -55,9 +55,7 @@
                                         </a>
     
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href="/delete-akun">Hapus Akun</a>
                                         </div>
                                     </div>
                                 </div>
@@ -126,15 +124,15 @@
                                     @method('PUT')
                                     @csrf
                                     <div class="form-group">
-                                        <label for="inputPasswordCurrent">Current password</label>
+                                        <label for="inputPasswordCurrent">Password Saat Ini</label>
                                         <input type="password" class="form-control" id="inputPasswordCurrent" name="current_password">
-                                    </div>
+                                     </div>
                                     <div class="form-group">
-                                        <label for="inputPasswordNew">New password</label>
+                                        <label for="inputPasswordNew">Password Baru</label>
                                         <input type="password" class="form-control" id="inputPasswordNew" name="new_password">
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputPasswordNew2">Verify password</label>
+                                        <label for="inputPasswordNew2">Verifikasi Password</label>
                                         <input type="password" class="form-control" id="inputPasswordNew2" name="new_password_confirmation">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -142,7 +140,7 @@
     
                             </div>
                         </div>
-                    </div>
+                    </div> 
 
                     <div class="tab-pane fade" id="pesanan" role="tabpanel">
                         <div class="card">
@@ -153,7 +151,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Tanggal/Jam</th>
+                                            <th>Jam Cuci</th>
                                             <th>Nama</th>
                                             <th>Kendaraan</th>
                                             <th>Nomor Plat</th>
@@ -179,11 +177,11 @@
                                             data-url="{{ route('customer.show', $data->id) }}"
                                             class="btn btn-info"
                                             ><i class="fa fa-info-circle"></i></a>
-                                            @if ($data->status_id > 1)
+                                            {{-- @if ($data->status_id > 1) --}}
                                                 <a href="/export-pdf/{{$data->id}}" class="btn btn-danger"><i class="fa fa-file-pdf"></i></a>
-                                            @else 
+                                            {{-- @else 
                                                 <a href="#" class="btn btn-success"><i class="fa fa-dollar"></i></a>
-                                            @endif
+                                            @endif --}}
                                           </td>
                                         </tr>
                                         @endforeach
@@ -219,18 +217,30 @@
             <div class="form-outline">
                 <p><b>Pilih Foto</b></p>
                 <div class="d-flex justify-content-around mb-1">
-                  <img src="{{ asset('images/profil/pp-1.jpg') }}" style="width:70px; border-radius:100%">
-                  <img src="{{ asset('images/profil/pp-2.jpg') }}" style="width:70px; border-radius:100%">
-                  <img src="{{ asset('images/profil/pp-3.jpg') }}" style="width:70px; border-radius:100%">
-                  <img src="{{ asset('images/profil/pp-4.jpg') }}" style="width:70px; border-radius:100%">
+                    <label for="image1">
+                        <img src="{{ asset('images/profil/pp-1.jpg') }}" style="width:70px; border-radius:100%">
+                    </label>
+                  
+                    <label for="image2">
+                                          <img src="{{ asset('images/profil/pp-2.jpg') }}" style="width:70px; border-radius:100%">
+                    </label>
+
+                    <label for="image3">
+                         <img src="{{ asset('images/profil/pp-3.jpg') }}" style="width:70px; border-radius:100%">
+                    </label>
+                 
+                    <label for="image4">
+                        <img src="{{ asset('images/profil/pp-4.jpg') }}" style="width:70px; border-radius:100%">
+                    </label>
+                  
                 </div>
               </div>
 
               <div class="form-outline mb-1 d-flex justify-content-around">
-                <input type="radio" name="image" value="pp-1.jpg" id="image">
-                <input type="radio" name="image" value="pp-2.jpg" id="image">
-                <input type="radio" name="image" value="pp-3.jpg" id="image">
-                <input type="radio" name="image" value="pp-4.jpg" id="image">
+                <input type="radio" name="image" value="pp-1.jpg" id="image1">
+                <input type="radio" name="image" value="pp-2.jpg" id="image2">
+                <input type="radio" name="image" value="pp-3.jpg" id="image3">
+                <input type="radio" name="image" value="pp-4.jpg" id="image4">
               </div>
           
         </div>
@@ -255,6 +265,7 @@
         </div>
         <div class="modal-body">
             <p><strong>Tanggal Pesan :</strong> <span id="pesanan-tgl_pesan"></span></p>
+            <p><strong>Jam Cuci :</strong> <span id="pesanan-jam_cuci"></span></p>
             <p><strong>No.Pesanan :</strong> <span id="pesanan-no_pesanan"></span></p>
             <p><strong>Nama :</strong> <span id="pesanan-nama"></span></p>
             <p><strong>Plat Nomor :</strong> <span id="pesanan-plat_nomor"></span></p>
@@ -362,11 +373,16 @@
               $.get(pesananURL, function (data) {
                 $('#pesananShowModal').modal('show');
                 $('#pesanan-tgl_pesan').text(data.tgl_pesan);
+                $('#pesanan-jam_cuci').text(data.jam_cuci);
                 $('#pesanan-no_pesanan').text(data.no_pesanan);
                 $('#pesanan-nama').text(data.nama);
                 $('#pesanan-plat_nomor').text(data.plat_nomor);
+                if(data.jeniscuci_id > 0) {
                 $('#pesanan-jeniscuci').text(data.jeniscuci.name);
+                }
+                if(data.kategori_id > 0 ) {
                 $('#pesanan-kategori').text(data.kategori.name);
+                }
                 $('#pesanan-hargacuci').text(data.harga_cuci);
                 $('#pesanan-hargakategori').text(data.harga_kategori);
                 $('#pesanan-subtotal').text(data.subtotal);

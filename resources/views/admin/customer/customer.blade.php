@@ -27,7 +27,7 @@
         </div>
 
         <table class="table table-striped text-center">
-            <thead class="thead bg-light">
+            <thead class="thead bg-primary">
                 <tr>
                   <th>Image</th>
                   <th>Nama</th>
@@ -44,7 +44,7 @@
                   <td>{{$data->email}}</td>
                   <td>{{$data->nomor_hp}}</td>
                   <td>
-                    <a href="customer-edit/{{$data->id}}" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i></a>
+                    {{-- <a href="customer-edit/{{$data->id}}" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i></a> --}}
                     <a href="/customer-destroy/{{$data->id}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
                   </td>
                 </tr>

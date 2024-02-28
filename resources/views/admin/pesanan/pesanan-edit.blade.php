@@ -75,7 +75,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="status" class="col-sm-2 col-form-label">Jenis Cuci :</label>
+                <label for="status" class="col-sm-2 col-form-label">Status :</label>
                   <div class="col-sm-10">
                     <Select name="status_id" id="status" class="form-control">
                         <option value="{{$pesanan->status->id}}">{{$pesanan->status->name}}</option>

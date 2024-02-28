@@ -9,13 +9,13 @@
 </head>
 <style>
   body {
-    background-image: url('{{ asset('images/login-bg.jpg') }}');
-    background-size: cover;
+    background-color: rgb(112, 232, 250);
+    
   }
 </style>
 
 <body>
-  <div class="vh-100 d-flex justify-content-center align-items-center flex-column">
+  <div class="mt-4 d-flex justify-content-center align-items-center flex-column">
         <!-- Section: Design Block -->
     <section class=" text-center text-lg-start col-lg-4">
       <div class="card mb-0">
@@ -23,14 +23,6 @@
           
           <div class="col-12">
             <div class="card-body px-md-5">
-
-              @if ($errors->any())
-                <div class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                </div>
-              @endif
     
               <form method="POST" action="/signin">
                   @csrf
@@ -40,46 +32,44 @@
                 </div>
 
                 <div class="form-outline mb-1">
-                  <label for="gender" class="col-form-label"><b>Jenis Kelamin</b></label>
-                  <div>
-                    <Select name="gender" id="gender" class="form-control" required>
-                        <option value="">Pilih Jenis Kelamin</option>
-                        <option value="L">Laki-Laki</option>
-                        <option value="P">Perempuan</option>
-                    </Select>
-                  </div>
-                </div>
-
-                <div class="form-outline mb-1">
                   <label class="form-label" for="nomor_hp"><b>No.Handphone</b></label>
                   <input class="form-control" type="text" name="nomor_hp" id="nomor_hp" required>
+                  @if ($errors->has('nomor_hp'))
+                      <p style="color: red;">*{{ $errors->first('nomor_hp') }}</p>
+                  @endif
                 </div>
 
                 <div class="form-outline mb-1">
                   <label class="form-label" for="email"><b>Email</b></label>
                   <input class="form-control" type="email" name="email" id="email" required>
+                  @if ($errors->has('email'))
+                      <p style="color: red;">*{{ $errors->first('email') }}</p>
+                  @endif
                 </div>
 
                 <div class="form-outline">
                   <p><b>Pilih Foto</b></p>
                   <div class="d-flex justify-content-around mb-1">
-                    <img src="{{ asset('images/profil/pp-1.jpg') }}" style="width:70px; border-radius:100%">
-                    <img src="{{ asset('images/profil/pp-2.jpg') }}" style="width:70px; border-radius:100%">
-                    <img src="{{ asset('images/profil/pp-3.jpg') }}" style="width:70px; border-radius:100%">
-                    <img src="{{ asset('images/profil/pp-4.jpg') }}" style="width:70px; border-radius:100%">
+                    <label for="pp1"><img src="{{ asset('images/profil/pp-1.jpg') }}" style="width:70px; border-radius:100%"></label>
+                    <label for="pp2"><img src="{{ asset('images/profil/pp-2.jpg') }}" style="width:70px; border-radius:100%"></label>
+                    <label for="pp3"><img src="{{ asset('images/profil/pp-3.jpg') }}" style="width:70px; border-radius:100%"></label>
+                    <label for="pp4"><img src="{{ asset('images/profil/pp-4.jpg') }}" style="width:70px; border-radius:100%"></label>
                   </div>
                 </div>
 
                 <div class="form-outline mb-1 d-flex justify-content-around">
-                  <input type="radio" name="image" value="pp-1.jpg" id="image">
-                  <input type="radio" name="image" value="pp-2.jpg" id="image">
-                  <input type="radio" name="image" value="pp-3.jpg" id="image">
-                  <input type="radio" name="image" value="pp-4.jpg" id="image">
+                  <input id="pp1" type="radio" name="image" value="pp-1.jpg" id="image">
+                  <input id="pp2" type="radio" name="image" value="pp-2.jpg" id="image">
+                  <input id="pp3" type="radio" name="image" value="pp-3.jpg" id="image">
+                  <input id="pp4" type="radio" name="image" value="pp-4.jpg" id="image">
                 </div>
 
                 <div class="form-outline mb-1">
                   <label class="form-label" for="password"><b>Password</b></label>
                   <input class="form-control" type="password" name="password" id="password" required>
+                  @if ($errors->has('password'))
+                      <p style="color: red;">*{{ $errors->first('password') }}</p>
+                  @endif
                 </div>
 
                 <div class="form-outline mb-1">
@@ -92,7 +82,7 @@
                 <div class="row mb-4">
                   <div class="col">
                     <!-- Simple link -->
-                    <a href="/login">Already Have Account?</a>
+                    <a href="/login">Sudah Punya Akun?</a>
                   </div>
                 </div>
     

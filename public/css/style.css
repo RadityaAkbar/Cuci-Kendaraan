@@ -114,8 +114,8 @@
   }
   
   .navi .navi-extra .profile-menu img {
-    width: 3rem;
-    height: 3rem;
+    width: 3.2rem;
+    height: 3.2rem;
     border-radius: 50%;
     position: relative;
   }
@@ -252,24 +252,39 @@
 
   .about .baris .konten {
     flex: 1 1 45rem;
-    position: relative;
+    /* position: relative; */
   }
   
   .about .baris .konten h3 {
     font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
   }
 
   .about .baris .konten p {
+    text-align: left;
     margin-bottom: 1rem;
     font-size: 1rem;
     font-weight: 300;
-    line-height: 1.5;
+    line-height: 1.4;
+  }
+
+  .about .baris .konten .tentang{
+    border-bottom: 1px solid black;
+  }
+
+  .about .baris .konten .layanan {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid black;
+  }
+
+  .about .baris .konten .layanan .layanan-right {
+    margin-bottom: 1rem;
   }
 
   /* Pemesanan Section */
   .pemesanan {
-    padding: 3.5rem 7% 1.4rem;
+    padding: 3.5rem 7% 0.5rem;
   }
 
   .pemesanan h2 {
@@ -347,7 +362,7 @@
 
   /* Kategori Section */
   .kategori {
-    padding: 7rem 7% 1.4rem;
+    padding: 0rem 2% 2rem;
   }
 
   .kategori h2 {
@@ -361,7 +376,7 @@
   }
   
   .kategori p {
-    text-align: center;
+    text-align: left;
     max-width: 30rem;
     margin: auto;
     font-weight: 300;
@@ -372,11 +387,24 @@
     display: flex;
     /* flex-wrap: wrap; */
     margin-top: 5rem;
-    justify-content: center;
+    justify-content: space-around;
   }
   
   .kategori .row .kategori-card {
-    text-align: center;
+    text-align: left;
+  }
+
+  .kategori .row .kategori-card h2 {
+    font-size: 1.8rem;
+    text-decoration: underline;
+  }
+
+  .kategori .row .kategori-card .icon {
+    display: flex;
+  }
+
+  .kategori .row .kategori-card .icon p {
+     margin-left:10px;
   }
   
   .kategori .row .kategori-card img {
@@ -385,7 +413,7 @@
   }
   
   .kategori .row .kategori-card .kategori-title {
-    margin: 1rem auto 0.5rem;
+    margin: 1rem auto 1rem;
   }
   
   /* Momen Section */

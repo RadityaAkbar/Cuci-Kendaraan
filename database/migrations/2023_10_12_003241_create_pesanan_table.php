@@ -16,7 +16,6 @@ return new class extends Migration
             $table->char('no_pesanan', 12);
             $table->string('nama', 100)->required();
             $table->string('plat_nomor', 100)->required();
-            $table->string('name', 100)->nullable()->default('text');
             $table->integer('subtotal')->unsigned()->nullable();
             $table->timestamps();
         });

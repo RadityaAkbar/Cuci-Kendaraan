@@ -68,14 +68,14 @@
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="{{asset('adminstyle')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="#" class="d-block">{{Auth::user()->name}}</a>
           </div>
-        </div>
+        </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -150,7 +150,7 @@
     </div>
     
     <footer class="main-footer">
-      <strong>DitWash &copy; 2021-2024.</strong>
+      <strong>Dit Wash &copy; 2021-2024.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Admin Panel</b>

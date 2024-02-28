@@ -66,33 +66,43 @@
     <!-- About Section Start -->
     <section id="about" class="about">
       <h2><span>Tentang</span> Kami</h2>
-      <p>Lorem ipsum dolor sit amet.</p>
+      <p>Ingin Tahu Tentang Kami?</p>
 
       <div class="baris">
         <div class="about-image">
           <img src="{{ asset('images/slider1.jpg') }}" alt="Tentang Kami">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.067445064236!2d112.75180577476011!3d-7.2331479927730165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f90455d8efbd%3A0x51bbd0b6f4ba8832!2sKomp.%20Sidotopo%20Dipo%2C%20Sidotopo%2C%20Kec.%20Semampir%2C%20Surabaya%2C%20Jawa%20Timur%2060152!5e0!3m2!1sid!2sid!4v1708406528513!5m2!1sid!2sid" width="700" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         
         <div class="konten">
           <h3>Kenapa memilih jasa kami?</h3>
-          <div class="drop-content" id="dropcontent">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <div class="tentang">
+            <p>DitWash adalah solusi terbaik untuk menjaga kendaraan anda tetap bersih dan berkilau.
+              Kami menawarkan berbagai layanan cuci mobil yang dapat disesuaikan dengan kebutuhan anda, mulai dari cuci standar hingga premium.
+              Tim kami yang berpengalaman dan profesional akan memastikan bahwa kendaraan anda mendapatkan perawatan terbaik.
+            </p>
+          </div>
+          
+          <h3>Layanan Kami</h3>
+          <p><b>Cuci Reguler </b>adalah layanan cuci kami yang menggunakan sabun cuci yang berkualitas dijamin bersih dan kinclong </p>
+          <p><b>Cuci Premium </b>adalah layanan cuci kami yang terbaik, mencuci bersih segala sudut kendaraan anda secara menyeluruh hingga kinclong </p>
+          <div class="layanan">
+            <div class="layanan-left">
+              <h4>Harga Kategori</h4>
+              <ul>
+                <li>Mobil : Rp 10.000</li>
+                <li>Motor : Rp 5.000</li>
+              </ul>
+            </div>
+            <div class="layanan-right">
+             <h4>Harga Layanan Cuci</h4>
+             <ul>
+              <li>Cuci Reguler : Rp 15.000</li>
+              <li>Cuci Premium : Rp 25.000</li>
+            </ul>
+            </div>
           </div>
 
-          <h3>Layanan Kami</h3>
-          
-            <h4>Harga Kategori</h4>
-              <p>- Motor : Rp.5000</p>
-              <p>- Mobil : Rp.15000</p>
-            <h4>Harga Layanan Cuci</h4>
-              <p>- Cuci Aja : Rp.10000</p>
-              <p>- Cuci Premium : Rp.20000</p>
-        </div>
-      </div>
-      <div class="baris">
-        <div class="about-image">
-          <iframe src="https:/www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.067445064236!2d112.75180577476011!3d-7.2331479927730165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f90455d8efbd%3A0x51bbd0b6f4ba8832!2sKomp.%20Sidotopo%20Dipo%2C%20Sidotopo%2C%20Kec.%20Semampir%2C%20Surabaya%2C%20Jawa%20Timur%2060152!5e0!3m2!1sid!2sid!4v1706196719413!5m2!1sid!2sid" width="700" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </section>
@@ -139,7 +149,7 @@
               <div class="form-right">
                 <div class="form-group">
                   <label for="tanggal">Tanggal Pesan</label>
-                  <input type="text" class="form-control" id="tanggal" name="tgl_pesan" value="{{$tanggal}}" readonly>
+                  <input type="date" class="form-control" id="inputdate" name="tgl_pesan" value="{{$tanggal}}">
                 </div>
 
                 <div class="form-group">
@@ -158,8 +168,8 @@
                   <label for="bayar">Pembayaran</label>
                   <div class="select-container">
                     <Select id="bayar" class="select-box" name="metode_bayar">
-                        <option value="">Pilih Metode Bayar</option>
-                        <option value="tunai">Tunai</option>
+                        <option value="" selected disabled>Pilih Metode Bayar</option>
+                        <option value="tunai">Tunai (DP Sesuai Harga Kategori)</option>
                         <option value="non-tunai">Non-Tunai</option>
                     </Select>
                   </div>
@@ -171,8 +181,9 @@
                     <Select name="jam_cuci" id="jamcuci" class="select-box" required>
                       <option value="" selected disabled>Pilih Jam Cuci</option>
                       @if (empty($jamCuciTersedia))
-                          <option value="" disabled>Jam Cuci Tidak Tersedia</option>
+                          <option value="" selected disabled>Pilih Jam Cuci (Tidak Ada Jam Tersedia)</option>
                       @else
+                          <option value="" selected disabled>Pilih Jam Cuci</option>
                           @foreach ($jamCuciTersedia as $jam)
                               <option value="{{ $jam }}">{{ $jam }}</option>
                           @endforeach
@@ -197,36 +208,26 @@
       <!-- Pemesanan Section End -->
     
 
-    {{-- <!-- Kategori Section Start -->
+    {{-- {{-- <!-- Kategori Section Start --> --}}
     <section class="kategori" id="ulasan">
-      <h2><span>Kritik</span> & Saran</h2>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus
-        aspernatur optio nesciunt assumenda. Animi.
-      </p>
-
       <div class="row">
         <div class="kategori-card">
-          <img src="img/lane.jpg" alt="moba" />
-          <h3 class="kategori-title">- Moba -</h3>
+          <h2>Hubungi Kami</h2>
+          <p>Jika anda mengalami masalah,</p>
+          <p>silahkan hubungi kontak dibawah ini</p><br>
+          <div class="icon"><i data-feather="mail"></i><a href="mailto: raditwirayudha3@gmail.com"><p>raditwirayudha3@gmail.com</p></a></div>
+          <div class="icon"><i data-feather="phone"></i><p>0895414444168</p></div>
+          <p></p>
         </div>
         <div class="kategori-card">
-          <img src="img/fps.jpg" alt="tembak" />
-          <h3 class="kategori-title">- First Person Shooter -</h3>
-        </div>
-        <div class="kategori-card">
-          <img src="img/royal.jpg" alt="loot" />
-          <h3 class="kategori-title">- Battleroyale -</h3>
-        </div>
-        <div class="kategori-card">
-          <img src="img/grind.jpg" alt="level" />
-          <h3 class="kategori-title">- MMORPG -</h3>
+          <h2>Waktu Operasional</h2>
+          <p><b>Senin-Minggu</b> 08:00-20:00</p>
         </div>
       </div>
     </section>
     <!-- Kategori Section End -->
 
-    <!-- Momen Section Start -->
+    {{-- <!-- Momen Section Start -->
     <section class="momen" id="momen">
       <h2><span>Momen</span> Hangat</h2>
 
@@ -287,6 +288,8 @@
 
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <!-- Feather-Icons -->
     <script>
@@ -312,7 +315,31 @@
                 confirmButtonText: 'OK'
             });
         @endif
+
+        @if (session()->has('failed'))
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session()->get('failed') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
     </script>
+    <script type="text/javascript">
+      $(function(){
+          var dtToday = new Date();
+       
+          var month = dtToday.getMonth() + 1;
+          var day = dtToday.getDate();
+          var year = dtToday.getFullYear();
+          if(month < 10)
+              month = '0' + month.toString();
+          if(day < 10)
+           day = '0' + day.toString();
+          var maxDate = year + '-' + month + '-' + day;
+          $('#inputdate').attr('min', maxDate);
+      });
+      </script>
     
   </body>
 </html>

@@ -43,17 +43,17 @@
         </p>
       </div>
       <div class="row">
-        <p><b>Harga Kategori :</b><input type="text" name="harga_kategori" value="{{ $pesanan->harga_kategori }}" class="border-0" readonly></p>
+        <p><b>Harga Kategori :</b><input type="text" name="harga_kategori" value="{{ number_format($pesanan->subtotal, 0, ',', '.') }}" class="border-0" readonly></p>
       </div>
       <div class="row">
-        <p><b>Harga Cuci : </b><input type="text" name="harga_cuci" value="{{ $pesanan->harga_cuci }}" class="border-0" readonly></p>
+        <p><b>Harga Cuci : </b><input type="text" name="harga_cuci" value="{{ number_format($pesanan->harga_cuci, 0, ',', '.') }}" class="border-0" readonly></p>
       </div>
       <div class="row">
         <p><b>Metode Bayar : </b><input style="text-transform: capitalize;" type="text" name="metode_bayar" value="{{ $pesanan->metode_bayar }}" class="border-0" readonly></p>
       </div>
       <hr>
       <div class="row">
-        <p><b>Subtotal :</b> <input type="text" name="subtotal" value="{{ $pesanan->subtotal }}" class="border-0" readonly></p>
+        <p><b>Subtotal : </b>Rp <input type="text" name="subtotal" value="{{ number_format($pesanan->subtotal, 0, ',', '.') }}" class="border-0" readonly></p>
       </div>
       
       <button class="btn btn-primary" id="pay-button">Bayar Sekarang</button>

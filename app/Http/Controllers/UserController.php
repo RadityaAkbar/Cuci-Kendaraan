@@ -23,9 +23,7 @@ class UserController extends Controller
     {   
         $dates = now()->format('Ymd');
         $tanggal = now()->format('Y-m-d');
-        $jumlah = Pesanan::whereDate('tgl_pesan', $tanggal)->count();
-        $jumlah++;
-        $no_pesan = 'C' . $dates . sprintf('%03d', $jumlah);
+        $no_pesan = 'C'.Carbon::now()->timestamp;
 
         $jamCuci = [
             '08:00','08:30',
@@ -43,7 +41,8 @@ class UserController extends Controller
             '20:00',
         ];
         
-          $jamSekarang = Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i');
+          $jamSekarang = Carbon::now()->setTimeZone('Asia/Jakarta')->format('H:i');
+          
           $jamCuciTersedia = [];
           
           foreach ($jamCuci as $jam) {
@@ -54,7 +53,7 @@ class UserController extends Controller
           
         $kategori = Kategori::select('id', 'name')->get();
         $jeniscuci = Jeniscuci::select('id', 'name')->get();
-        return view('user/index', ['jeniscuci' => $jeniscuci, 'kategori' => $kategori, 'no_pesan' => $no_pesan, 'tanggal' => $tanggal, 'jamCuciTersedia' => $jamCuciTersedia]);
+        return view('user/index', ['jeniscuci' => $jeniscuci, 'kategori' => $kategori, 'no_pesan' => $no_pesan, 'tanggal' => $tanggal, 'jamCuci' => $jamCuci, 'jamCuciTersedia' => $jamCuciTersedia]);
     }
 
     /**
@@ -63,19 +62,19 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-            'tgl_pesan' => 'required|date',
+            'tgl_pesan' => 'required|date|after:yesterday',
             'jam_cuci' => 'required',
         ]);
 
         $tanggal = $validatedData['tgl_pesan'];
-        $jam = $validatedData['jam_cuci'];
+        // $jam = $validatedData['jam_cuci'];  
 
         // Cek apakah slot booking tersedia
-        if (!Pesanan::available($tanggal, $jam)) {
-            Session::flash('status', 'failed');
-            Session::flash('message', 'Slot Cuci Penuh Pada Jam Tersebut');
-            return redirect('/#pesan')->with('success', 'Gagal Melakukan Pemesanan');
-        }
+        // if (!Pesanan::available($tanggal, $jam)) {
+        //     Session::flash('status', 'failed');
+        //     Session::flash('message', 'Slot Cuci Penuh Pada Jam Tersebut');
+        //     return redirect('/#pesan')->with('failed', 'Gagal Melakukan Pemesanan');
+        // }    
 
         $jeniscuci = $request->input('jeniscuci_id');
         $kategori = $request->input('kategori_id');
@@ -211,7 +210,7 @@ class UserController extends Controller
         $deletedPesanan = Pesanan::findOrFail($id);
         $deletedPesanan->delete();
 
-        return redirect('/');
+        return redirect('/#pesan');
     }
 
     public function profil(Request $request)
@@ -239,9 +238,9 @@ class UserController extends Controller
         return $pdf->download('invoice-'.Carbon::now()->timestamp.'.pdf');
     }
 
-    // public function pdf(Request $request, $id)
-    // {
-    //     $pesanan = Pesanan::select()->where('id', $id)->with(['jeniscuci', 'kategori', 'status', 'user'])->get();
-    //     return view('pdf/export-pesanan', ['pesanan' => $pesanan]);
-    // }
+    public function pdf(Request $request, $id)
+    {
+        $pesanan = Pesanan::select()->where('id', $id)->with(['jeniscuci', 'kategori', 'status', 'user'])->get();
+        return view('pdf/export-pesanan', ['pesanan' => $pesanan]);
+    }
 }
